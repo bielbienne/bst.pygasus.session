@@ -10,20 +10,14 @@ def read(*rnames):
 
 long_description = (
     read('README.rst')
-    + '
-' +
-    'Contributors
-'
-    '============
-'
-    + '
-' +
+    + '\n' +
+    'Contributors\n'
+    '============\n'
+    + '\n' +
     read('docs', 'CONTRIBUTORS.txt')
-    + '
-' +
+    + '\n' +
     read('docs', 'CHANGES.txt')
-    + '
-')
+    + '\n')
 
 setup(
       name='bb.extjs.session',
