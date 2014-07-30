@@ -6,7 +6,7 @@ from bb.extjs.session.interfaces import IClientIdentification
 from bb.extjs.session.interfaces import DEFAULT_EXPIRATION
 
 
-class SessionData(dict):
+class UserSessionData(dict):
 
     def __init__(self):
         self.reset_lastchanged()
@@ -15,7 +15,14 @@ class SessionData(dict):
         self.lastchanged = time()
 
 
-ram = dict()
+class RamSessionData(dict):
+    def __init__(self, expiration=None):
+        if expiration is None:
+            expiration = DEFAULT_EXPIRATION
+        self.expiration = expiration
+ram = RamSessionData()
+
+
 class RamSession(ext.Adapter):
     """ simple session thats store data unencrypted in ram. After shutdown
         the server all data will lost.
@@ -25,7 +32,7 @@ class RamSession(ext.Adapter):
     ext.implements(ISession)
     ext.context(ext.IRequest)
 
-    session_data_cls = SessionData
+    user_session_data_cls = UserSessionData
 
     def __init__(self, request):
         self.request = request
@@ -33,18 +40,18 @@ class RamSession(ext.Adapter):
     def __setitem__(self, key, value):
         client = IClientIdentification(self.request)
         identification = client.identification()
-        if identification is None:
+        if identification is None or identification not in self.store():
             identification = client.apply()
-        data = self.store().setdefault(identification, self.session_data_cls)
-        data[key] = value
-        data.lastchanged = time()
+        data = self.store().setdefault(identification, self.user_session_data_cls())
+        data[key] = self.encrypt(value)
+        data.reset_lastchanged()
         self.refresh()
 
     def __getitem__(self, key):
         identification = IClientIdentification(self.request).identification()
         if identification is None or identification not in self.store():
             raise KeyError('user has no identification or data')
-        return self.store()[identification]
+        return self.decrypt(self.store()[identification][key])
 
     def __delitem__(self, key):
         identification = IClientIdentification(self.request).identification()
@@ -61,22 +68,33 @@ class RamSession(ext.Adapter):
         return key in self.store()[identification]
 
     def set_expiration_time(self, time):
-        """ expiration time in second for session
-        """
+       self.store().expiration = time
 
     def get_expiration_time(self):
-        return DEFAULT_EXPIRATION
+        return self.store().expiration
 
     def store(self):
         """ return a store in form of a dict
         """
         return ram
 
+    def decrypt(self, value):
+        """ this function do nothing but
+            can easily overrided in a subclass
+        """
+        return value
+
+    def encrypt(self, value):
+        """ this function do nothing but
+            can easily overrided in a subclass
+        """
+        return value
+
     def refresh(self):
         removes = list()
         for key, data in self.store().items():
             if data.lastchanged + self.get_expiration_time() < time():
                 removes.append(key)
-        for key in removes():
+        for key in removes:
             del self.store()[key]
     

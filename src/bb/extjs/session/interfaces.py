@@ -1,4 +1,4 @@
-from zope import interfaces
+from zope import interface
 
 
 DEFAULT_EXPIRATION = 15*60
@@ -21,7 +21,7 @@ class IClientIdentification(interface.Interface):
         """
 
 
-class Session(interface.Interface):
+class ISession(interface.Interface):
     
     def __init__(self, request):
         """ as param request that implement IRequest
