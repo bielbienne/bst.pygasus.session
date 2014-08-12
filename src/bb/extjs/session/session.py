@@ -45,9 +45,9 @@ class RamSession(ext.Adapter):
         data = self.store().setdefault(identification, self.user_session_data_cls())
         data[key] = self.encrypt(value)
         data.reset_lastchanged()
-        self.refresh()
 
     def __getitem__(self, key):
+        self.refresh()
         identification = IClientIdentification(self.request).identification()
         if identification is None or identification not in self.store():
             raise KeyError('user has no identification or data')
@@ -59,7 +59,7 @@ class RamSession(ext.Adapter):
             raise KeyError('user has no identification or data')
         del self.store()[identification]
 
-    def __contain__(self, key):
+    def __contains__(self, key):
         identification = IClientIdentification(self.request).identification()
         if identification is None:
             return False
@@ -80,13 +80,13 @@ class RamSession(ext.Adapter):
 
     def decrypt(self, value):
         """ this function do nothing but
-            can easily overrided in a subclass
+            can easily overridden in a subclass
         """
         return value
 
     def encrypt(self, value):
         """ this function do nothing but
-            can easily overrided in a subclass
+            can easily overridden in a subclass
         """
         return value
 
