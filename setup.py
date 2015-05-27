@@ -1,12 +1,12 @@
-
 from setuptools import setup, find_packages
 import os
 
 # Variable
 version = '0.1'
 
+
 def read(*rnames):
-        return open(os.path.join(os.path.dirname(__file__), *rnames)).read()
+    return open(os.path.join(os.path.dirname(__file__), *rnames)).read()
 
 long_description = (
     read('README.rst')
@@ -19,8 +19,7 @@ long_description = (
     read('docs', 'CHANGES.txt')
     + '\n')
 
-setup(
-      name='bb.extjs.session',
+setup(name='bb.extjs.session',
       version=version,
       description='Server session for bb.extjs framework',
       long_description=long_description,
@@ -30,8 +29,8 @@ setup(
       url='',
       license='LGPLv3',
       packages=find_packages('src'),
-      package_dir = {'': 'src'},
-      include_package_data = True,
+      package_dir={'': 'src'},
+      include_package_data=True,
       namespace_packages=['bb.extjs'],
       zip_safe=False,
       install_requires=[

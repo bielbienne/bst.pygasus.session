@@ -10,7 +10,7 @@ class UserSessionData(dict):
 
     def __init__(self):
         self.reset_lastchanged()
-    
+
     def reset_lastchanged(self):
         self.lastchanged = time()
 
@@ -26,7 +26,7 @@ ram = RamSessionData()
 class RamSession(ext.Adapter):
     """ simple session thats store data unencrypted in ram. After shutdown
         the server all data will lost.
-        For a persistent session class you properly should 
+        For a persistent session class you properly should
         inherit from this class.
     """
     ext.implements(ISession)
@@ -68,7 +68,7 @@ class RamSession(ext.Adapter):
         return key in self.store()[identification]
 
     def set_expiration_time(self, time):
-       self.store().expiration = time
+        self.store().expiration = time
 
     def get_expiration_time(self):
         return self.store().expiration
@@ -97,4 +97,3 @@ class RamSession(ext.Adapter):
                 removes.append(key)
         for key in removes:
             del self.store()[key]
-    
