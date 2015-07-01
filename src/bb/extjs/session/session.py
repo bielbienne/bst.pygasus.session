@@ -1,9 +1,9 @@
 from time import time
 
-from bb.extjs.core import ext
-from bb.extjs.session.interfaces import ISession
-from bb.extjs.session.interfaces import IClientIdentification
-from bb.extjs.session.interfaces import DEFAULT_EXPIRATION
+from bst.pygasus.core import ext
+from bst.pygasus.session.interfaces import ISession
+from bst.pygasus.session.interfaces import IClientIdentification
+from bst.pygasus.session.interfaces import DEFAULT_EXPIRATION
 
 
 class UserSessionData(dict):

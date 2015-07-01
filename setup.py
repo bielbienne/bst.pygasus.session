@@ -19,9 +19,9 @@ long_description = (
     read('docs', 'CHANGES.txt')
     + '\n')
 
-setup(name='bb.extjs.session',
+setup(name='bst.pygasus.session',
       version=version,
-      description='Server session for bb.extjs framework',
+      description='Server session for bst.pygasus framework',
       long_description=long_description,
       keywords='',
       author='Biel/Bienne',
@@ -31,7 +31,7 @@ setup(name='bb.extjs.session',
       packages=find_packages('src'),
       package_dir={'': 'src'},
       include_package_data=True,
-      namespace_packages=['bb.extjs'],
+      namespace_packages=['bst.pygasus'],
       zip_safe=False,
       install_requires=[
           'setuptools',

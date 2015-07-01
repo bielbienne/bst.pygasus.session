@@ -1,8 +1,8 @@
 import random
 import string
 
-from bb.extjs.core import ext
-from bb.extjs.session.interfaces import IClientIdentification
+from bst.pygasus.core import ext
+from bst.pygasus.session.interfaces import IClientIdentification
 
 
 COOKIE_SESSION_LENGHT = 100
