@@ -1,11 +1,4 @@
-
-include *.rst
-include *.txt
-
-recursive-include docs *
-recursive-include src *
-
-global-exclude *.dll
-global-exclude *.pyc
-global-exclude *.pyo
-global-exclude *.so
+include *.txt *.rst
+include tox.ini
+include .travis.yml
+recursive-include src/bst.pygasus.session *.xml *.txt *.py
