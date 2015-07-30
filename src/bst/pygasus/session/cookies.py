@@ -6,7 +6,7 @@ from bst.pygasus.session.interfaces import IClientIdentification
 
 
 COOKIE_SESSION_LENGHT = 100
-COOKIE_SESSION_KEY = 'bbext_session'
+COOKIE_SESSION_KEY = 'pygasus_session'
 
 
 class CookieClientIdentification(ext.Adapter):
